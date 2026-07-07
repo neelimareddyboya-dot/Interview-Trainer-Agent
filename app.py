@@ -39,10 +39,10 @@ from agents import (
 # ════════════════════════════════════════════════════════════════════════════
 AGENT_INSTRUCTIONS = {
     # ── Model ─────────────────────────────────────────────────────────────
-    # IBM Granite model to use for all agents.
-    # Options: "ibm/granite-13b-chat-v2" | "ibm/granite-13b-instruct-v2"
-    #          "ibm/granite-20b-multilingual" | "ibm/granite-34b-code-instruct"
-    "model_id":"ibm/granite-3-8b-instruct",
+    # Available on current plan: "meta-llama/llama-3-3-70b-instruct" (recommended)
+    #                             "ibm/granite-8b-code-instruct"
+    #                             "ibm/granite-guardian-3-8b"
+    "model_id": "meta-llama/llama-3-3-70b-instruct",
 
     # ── Interview Style ────────────────────────────────────────────────────
     # Controls how questions are framed and the interview flow.
