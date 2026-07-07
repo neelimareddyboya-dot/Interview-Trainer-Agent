@@ -1,0 +1,114 @@
+SOFTWARE ENGINEERING INTERVIEW KNOWLEDGE BASE
+==============================================
+
+## Data Structures & Algorithms
+
+### Arrays and Strings
+- Two-pointer technique for O(n) solutions
+- Sliding window for subarray/substring problems
+- Prefix sums for range queries
+- Common problems: Two Sum, Maximum Subarray, Valid Palindrome
+
+### Linked Lists
+- Fast and slow pointer technique (Floyd's cycle detection)
+- Reversal patterns: iterative and recursive
+- Common problems: Reverse Linked List, Merge Two Sorted Lists, LRU Cache
+
+### Trees and Graphs
+- BFS vs DFS traversal strategies
+- Binary Search Tree properties and operations
+- Trie for prefix matching
+- Union-Find / Disjoint Set for connectivity problems
+- Common problems: Binary Tree Level Order, Word Ladder, Course Schedule
+
+### Dynamic Programming
+- Memoization (top-down) vs Tabulation (bottom-up)
+- Common patterns: 0/1 Knapsack, Longest Common Subsequence, Coin Change
+- State machine DP for string problems
+
+### Sorting and Searching
+- QuickSort average O(n log n), worst O(n²)
+- MergeSort guaranteed O(n log n), stable
+- Binary Search on sorted arrays and on answer space
+- Heap operations: O(log n) insert, O(log n) delete
+
+---
+
+## System Design
+
+### Scalability Concepts
+- Horizontal vs vertical scaling
+- Load balancing strategies: Round Robin, Least Connections, IP Hash
+- Caching layers: CDN, Application Cache, Database Cache
+- CAP Theorem: Consistency, Availability, Partition Tolerance
+
+### Database Design
+- Relational vs NoSQL tradeoffs
+- Indexing strategies: B-Tree, Hash, Composite indexes
+- Database normalization: 1NF, 2NF, 3NF, BCNF
+- Sharding strategies: range-based, hash-based, directory-based
+- Read replicas for scaling reads
+
+### Microservices Architecture
+- Service decomposition principles
+- API Gateway pattern
+- Service discovery (Consul, Eureka)
+- Circuit breaker pattern (Hystrix)
+- Event-driven architecture with message queues (Kafka, RabbitMQ)
+
+### Common System Design Questions
+- Design URL Shortener (tinyURL)
+- Design Twitter/Instagram Feed
+- Design Distributed Cache
+- Design Rate Limiter
+- Design Notification System
+- Design Search Autocomplete
+
+---
+
+## Object-Oriented Programming
+
+### SOLID Principles
+- Single Responsibility Principle: A class should have one reason to change
+- Open/Closed Principle: Open for extension, closed for modification
+- Liskov Substitution Principle: Subtypes must be substitutable for base types
+- Interface Segregation Principle: Many specific interfaces over one general
+- Dependency Inversion Principle: Depend on abstractions, not concretions
+
+### Design Patterns
+- Creational: Singleton, Factory, Abstract Factory, Builder, Prototype
+- Structural: Adapter, Bridge, Composite, Decorator, Facade, Proxy
+- Behavioral: Observer, Strategy, Command, Iterator, State, Template Method
+
+---
+
+## Behavioral Interview - Software Engineering
+
+### Common Questions
+- Tell me about a challenging technical problem you solved
+- Describe a time you had to refactor legacy code
+- How do you handle technical disagreements with teammates?
+- Walk me through your code review process
+- Tell me about a project you're most proud of
+
+### STAR Method Framework
+- Situation: Set the context
+- Task: Describe your responsibility
+- Action: Explain what you did specifically
+- Result: Quantify the outcome
+
+---
+
+## Company-Specific Patterns
+
+### FAANG Interview Focus
+- Amazon: Leadership Principles + System Design + DSA
+- Google: Algorithmic thinking + Scalability + Code quality
+- Meta: Product sense + DSA + System Design
+- Microsoft: Problem solving + OOP + Behavioral
+
+### Startup Interviews
+- Full-stack capabilities
+- Pragmatic problem solving
+- Speed of delivery
+- Cultural fit and adaptability

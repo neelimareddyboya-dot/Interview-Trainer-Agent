@@ -1,0 +1,134 @@
+CAREER GUIDANCE & PROFESSIONAL DEVELOPMENT KNOWLEDGE BASE
+==========================================================
+
+## Interview Preparation Strategy
+
+### 30-Day Preparation Plan
+Week 1: Self-assessment and research
+- Map your skills to job requirements
+- Research target companies and roles
+- Identify skill gaps
+
+Week 2: Technical foundations
+- Review core concepts for your domain
+- Practice coding/technical problems daily
+- Study system design (for senior roles)
+
+Week 3: Behavioral preparation
+- Prepare 15-20 STAR stories
+- Cover all major behavioral categories
+- Practice out loud, not just in your head
+
+Week 4: Mock interviews and refinement
+- Do at least 5 full mock interviews
+- Record yourself and review
+- Refine answers based on feedback
+
+---
+
+## Resume Optimization
+
+### ATS-Friendly Resume Tips
+- Use standard section headings
+- Include keywords from job description
+- Use bullet points, not paragraphs
+- Quantify achievements (increased X by Y%)
+- One page for < 10 years, two pages max
+
+### Impact Statements
+Formula: Action verb + What you did + Measurable result
+Examples:
+- "Reduced API latency by 40% through caching optimization"
+- "Led migration of legacy monolith to microservices, reducing deployment time from 2 hours to 15 minutes"
+- "Built ML model that improved customer churn prediction accuracy from 65% to 89%"
+
+---
+
+## Technical Interview Strategies
+
+### Coding Interviews
+1. Clarify requirements before coding
+2. Think out loud — explain your approach
+3. Start with brute force, then optimize
+4. Test with examples, including edge cases
+5. Discuss time and space complexity
+
+### System Design Interviews
+1. Clarify scope: functional and non-functional requirements
+2. Estimate scale: DAU, QPS, storage needs
+3. High-level design: components and data flow
+4. Deep dive into critical components
+5. Discuss trade-offs and alternatives
+
+### Take-Home Projects
+- Follow all requirements precisely
+- Write clean, well-documented code
+- Include tests
+- Write a clear README
+- Don't over-engineer — show pragmatism
+
+---
+
+## Career Path Frameworks
+
+### Software Engineering Levels
+- L3/Junior: Individual contribution, guided work
+- L4/Mid-level: Independent execution, some scope definition
+- L5/Senior: Technical leadership, cross-team impact
+- L6/Staff: Organizational impact, strategy
+- L7/Principal: Company-wide technical direction
+
+### Data Science Career Paths
+- Data Analyst → Senior Analyst → Analytics Manager
+- Data Scientist → Senior DS → Staff DS → Principal DS
+- ML Engineer → Senior MLE → Staff MLE
+- Research Scientist → Senior RS → Principal Researcher
+
+### Skill Development Priorities
+Junior → Mid: Depth in core domain, code quality
+Mid → Senior: System thinking, mentoring, reliability
+Senior → Staff: Organizational impact, technical strategy
+
+---
+
+## Learning Resources by Domain
+
+### Software Engineering
+- Books: CLRS, Clean Code, Designing Data-Intensive Applications, System Design Interview
+- Platforms: LeetCode, HackerRank, Educative, Grokking System Design
+
+### Data Science & ML
+- Books: Hands-On ML with Scikit-Learn, Deep Learning with Python
+- Platforms: Kaggle, fast.ai, Coursera (Andrew Ng), Papers with Code
+
+### AI/ML Engineering
+- IBM watsonx.ai documentation and tutorials
+- Hugging Face course
+- DeepLearning.AI specializations
+- Research papers: arXiv.org
+
+### Web Development
+- MDN Web Docs for fundamentals
+- Frontend Masters for advanced courses
+- The Odin Project for full curriculum
+- CS50W for web-specific CS foundations
+
+---
+
+## Networking & Job Search
+
+### LinkedIn Optimization
+- Complete profile with all sections
+- Custom headline beyond job title
+- Quantified achievements in experience
+- Skills endorsements and recommendations
+- Regular posts showing expertise
+
+### Interview Pipeline Management
+- Track all applications in a spreadsheet
+- Follow up within 5 business days
+- Send thank-you notes within 24 hours
+- Learn from every rejection
+
+### Offer Evaluation Matrix
+Consider: Base salary, Bonus, Equity, Benefits, PTO, Remote flexibility, Career growth, Team culture, Company stability

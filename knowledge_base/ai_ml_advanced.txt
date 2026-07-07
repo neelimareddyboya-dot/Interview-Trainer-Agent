@@ -1,0 +1,117 @@
+AI/ML ADVANCED & LLM INTERVIEW KNOWLEDGE BASE
+=============================================
+
+## Large Language Models (LLMs)
+
+### Architecture
+- Transformer: encoder-decoder, self-attention, multi-head attention
+- BERT: bidirectional, masked language model, NSP
+- GPT family: autoregressive, causal language model
+- T5: text-to-text framework
+- LLaMA, Mistral, Falcon: open-source alternatives
+
+### Attention Mechanism
+- Scaled Dot-Product Attention: Q, K, V matrices
+- Attention(Q,K,V) = softmax(QK^T / sqrt(d_k)) * V
+- Multi-head attention: parallel attention in different subspaces
+- Positional encoding: absolute vs relative
+- Flash Attention: memory-efficient attention
+
+### Training Techniques
+- Pre-training: next token prediction, masked LM
+- Fine-tuning: full fine-tuning, LoRA, QLoRA
+- RLHF: Reinforcement Learning from Human Feedback
+- Constitutional AI: principle-based alignment
+- DPO: Direct Preference Optimization
+
+---
+
+## Retrieval-Augmented Generation (RAG)
+
+### RAG Pipeline
+- Document ingestion and chunking strategies
+- Embedding models: text-embedding-ada, sentence-transformers
+- Vector databases: FAISS, Pinecone, Weaviate, Chroma
+- Retrieval: dense retrieval, sparse (BM25), hybrid
+- Re-ranking: cross-encoder models
+- Response synthesis with retrieved context
+
+### Advanced RAG Techniques
+- HyDE: Hypothetical Document Embeddings
+- Parent Document Retrieval
+- Contextual compression
+- Multi-query retrieval
+- Self-RAG: adaptive retrieval
+
+---
+
+## Prompt Engineering
+
+### Techniques
+- Zero-shot prompting
+- Few-shot prompting with examples
+- Chain-of-thought (CoT) reasoning
+- Tree-of-thought (ToT) for complex problems
+- ReAct: reasoning + acting
+- Role prompting for specialized behavior
+
+### Best Practices
+- Clear task description
+- Explicit output format specification
+- Providing context and constraints
+- Temperature control: 0 for deterministic, higher for creative
+- Token budget management
+
+---
+
+## AI Agents & Multi-Agent Systems
+
+### Agent Architecture
+- Perception: input processing
+- Reasoning: planning and decision making
+- Action: tool use and execution
+- Memory: short-term (context), long-term (vector store)
+
+### Agent Frameworks
+- LangChain: chains, agents, tools
+- LlamaIndex: RAG-focused framework
+- AutoGen: multi-agent conversation
+- CrewAI: role-based agents
+- IBM watsonx.ai: enterprise AI platform
+
+### Tool Use
+- Function calling / structured outputs
+- Code execution environments
+- Web search integration
+- Database queries
+- API integrations
+
+---
+
+## Computer Vision
+
+### Object Detection
+- YOLO family: real-time detection
+- Faster R-CNN: region proposal networks
+- DETR: transformer-based detection
+
+### Image Classification
+- Transfer learning from pre-trained models
+- Data augmentation strategies
+- Grad-CAM for interpretability
+
+---
+
+## Natural Language Processing
+
+### Classic NLP
+- Tokenization, lemmatization, stemming
+- POS tagging, NER, dependency parsing
+- TF-IDF, word embeddings (Word2Vec, GloVe)
+
+### Advanced NLP Tasks
+- Sentiment analysis
+- Question answering
+- Text summarization
+- Machine translation
+- Information extraction

@@ -1,0 +1,103 @@
+DATA SCIENCE & MACHINE LEARNING INTERVIEW KNOWLEDGE BASE
+=========================================================
+
+## Machine Learning Fundamentals
+
+### Supervised Learning
+- Linear Regression: assumptions, OLS, regularization (Ridge, Lasso, ElasticNet)
+- Logistic Regression: log-odds, sigmoid function, decision boundary
+- Decision Trees: entropy, information gain, Gini impurity, pruning
+- Random Forest: bagging, feature importance, out-of-bag error
+- Gradient Boosting: XGBoost, LightGBM, CatBoost - sequential ensemble
+- SVM: hyperplane, kernel trick, soft margin, C parameter
+
+### Unsupervised Learning
+- K-Means Clustering: elbow method, silhouette score, limitations
+- DBSCAN: density-based, handles noise, no need for k
+- PCA: variance explained, eigenvalues/eigenvectors, dimensionality reduction
+- t-SNE: non-linear, good for visualization, not for ML features
+- Hierarchical Clustering: dendrogram, agglomerative vs divisive
+
+### Neural Networks & Deep Learning
+- Backpropagation: chain rule, gradient computation
+- Activation functions: ReLU, Sigmoid, Tanh, Softmax
+- Optimizers: SGD, Adam, RMSprop, AdaGrad
+- Regularization: Dropout, Batch Normalization, L1/L2
+- CNN architectures: LeNet, VGG, ResNet, EfficientNet
+- RNN, LSTM, GRU for sequential data
+- Transformer architecture: attention mechanism, BERT, GPT
+
+---
+
+## Model Evaluation & Metrics
+
+### Classification Metrics
+- Accuracy: misleading for imbalanced datasets
+- Precision = TP / (TP + FP) - quality of positive predictions
+- Recall = TP / (TP + FN) - coverage of actual positives
+- F1 Score: harmonic mean of precision and recall
+- ROC-AUC: model's ability to distinguish classes
+- PR Curve: better for imbalanced datasets
+
+### Regression Metrics
+- MAE: Mean Absolute Error - robust to outliers
+- MSE: Mean Squared Error - penalizes large errors
+- RMSE: interpretable in same units as target
+- R²: proportion of variance explained
+- MAPE: percentage error, problematic with zero values
+
+### Cross-Validation
+- K-Fold: general purpose
+- Stratified K-Fold: for classification with class imbalance
+- Time Series Split: respect temporal ordering
+- Leave-One-Out: expensive, useful for small datasets
+
+---
+
+## Feature Engineering
+
+### Techniques
+- Encoding: One-Hot, Label, Target, Frequency encoding
+- Scaling: StandardScaler, MinMaxScaler, RobustScaler
+- Handling missing values: imputation strategies, indicator variables
+- Feature selection: correlation, mutual information, recursive elimination
+- Feature creation: polynomial features, interaction terms, domain-specific
+
+### Class Imbalance
+- Oversampling: SMOTE, ADASYN
+- Undersampling: Random, Tomek Links
+- Class weights in model training
+- Threshold tuning for optimal business objective
+
+---
+
+## Statistics & Probability
+
+### Hypothesis Testing
+- Null vs Alternative hypothesis
+- p-value interpretation
+- Type I (false positive) and Type II (false negative) errors
+- t-test, chi-square test, ANOVA
+- A/B testing: statistical significance, minimum detectable effect
+
+### Probability Distributions
+- Normal, Binomial, Poisson, Bernoulli, Beta, Gamma
+- Central Limit Theorem: sum of independent RVs approaches normal
+- Bayes' Theorem: P(A|B) = P(B|A) * P(A) / P(B)
+
+---
+
+## Data Engineering & MLOps
+
+### Data Pipeline
+- ETL vs ELT
+- Data quality checks: completeness, consistency, accuracy
+- Feature stores: offline vs online
+- Data versioning: DVC
+
+### Model Deployment
+- REST API serving (Flask, FastAPI)
+- Docker containerization
+- Model monitoring: data drift, concept drift, performance degradation
+- MLflow: experiment tracking, model registry
+- CI/CD for ML pipelines

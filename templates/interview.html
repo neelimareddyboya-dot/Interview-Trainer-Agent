@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Interview Session — Interview Trainer Agent</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet"/>
+  <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet"/>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar navbar-expand-lg sticky-top" id="mainNav">
+  <div class="container">
+    <a class="navbar-brand fw-bold" href="/">
+      <span class="brand-icon">🎯</span> Interview<span class="text-accent">Trainer</span>
+    </a>
+    <div class="ms-auto d-flex align-items-center gap-3">
+      <span id="sessionBadge" class="badge badge-session d-none"></span>
+      <a href="/dashboard" class="btn btn-sm btn-outline-primary"><i class="bi bi-grid-1x2"></i> Dashboard</a>
+      <button class="btn btn-sm btn-outline-secondary" onclick="toggleTheme()"><i class="bi bi-moon-stars"></i></button>
+    </div>
+  </div>
+</nav>
+
+<div class="container-fluid interview-layout">
+  <div class="row g-0 h-100">
+
+    <!-- LEFT SIDEBAR: Setup & Progress -->
+    <div class="col-lg-3 sidebar" id="interviewSidebar">
+      <div class="sidebar-inner p-3">
+
+        <!-- Setup Panel -->
+        <div id="setupPanel">
+          <h6 class="sidebar-heading"><i class="bi bi-sliders me-2"></i>Session Setup</h6>
+
+          <!-- Candidate Name -->
+          <div class="mb-2">
+            <label class="form-label small fw-semibold">Your Name (Optional)</label>
+            <input type="text" class="form-control form-control-sm" id="candidateName" placeholder="e.g., John Smith"/>
+          </div>
+
+          <!-- Resume Upload -->
+          <div class="setup-card mb-3">
+            <label class="form-label small fw-semibold">Resume (Optional)</label>
+            <div class="upload-zone" id="uploadZone" onclick="document.getElementById('resumeFile').click()">
+              <i class="bi bi-cloud-arrow-up fs-3"></i>
+              <p class="mb-0 small mt-1">Click to upload PDF/DOCX/TXT</p>
+              <p class="text-muted" style="font-size:11px" id="uploadStatus">Max 10 MB</p>
+            </div>
+            <input type="file" id="resumeFile" accept=".pdf,.docx,.doc,.txt" class="d-none"/>
+          </div>
+
+          <!-- Job Role -->
+          <div class="mb-2">
+            <label class="form-label small fw-semibold">Target Job Role</label>
+            <input type="text" class="form-control form-control-sm" id="jobRole" placeholder="e.g., Senior Backend Engineer" value="Software Engineer"/>
+          </div>
+
+          <!-- Domain -->
+          <div class="mb-2">
+            <label class="form-label small fw-semibold">Domain</label>
+            <select class="form-select form-select-sm" id="domainSelect">
+              {% for d in domains %}
+              <option value="{{ d }}" {% if d == 'Software Engineering' %}selected{% endif %}>{{ d }}</option>
+              {% endfor %}
+            </select>
+          </div>
+
+          <!-- Skills -->
+          <div class="mb-2">
+            <label class="form-label small fw-semibold">Your Skills</label>
+            <input type="text" class="form-control form-control-sm" id="skillsInput" placeholder="Python, SQL, Docker, React…"/>
+            <small class="text-muted">Comma-separated</small>
+          </div>
+
+          <!-- Experience -->
+          <div class="mb-2">
+            <label class="form-label small fw-semibold">Experience (years)</label>
+            <input type="number" class="form-control form-control-sm" id="experienceYears" value="2" min="0" max="30"/>
+          </div>
+
+          <!-- Difficulty -->
+          <div class="mb-2">
+            <label class="form-label small fw-semibold">Difficulty</label>
+            <div class="btn-group w-100" role="group">
+              <input type="radio" class="btn-check" name="difficulty" id="diffEasy" value="easy">
+              <label class="btn btn-sm btn-outline-success" for="diffEasy">Easy</label>
+              <input type="radio" class="btn-check" name="difficulty" id="diffMed" value="medium" checked>
+              <label class="btn btn-sm btn-outline-warning" for="diffMed">Medium</label>
+              <input type="radio" class="btn-check" name="difficulty" id="diffHard" value="hard">
+              <label class="btn btn-sm btn-outline-danger" for="diffHard">Hard</label>
+            </div>
+          </div>
+
+          <!-- Question Type -->
+          <div class="mb-2">
+            <label class="form-label small fw-semibold">Question Type</label>
+            <select class="form-select form-select-sm" id="questionType">
+              <option value="mixed">Mixed (Recommended)</option>
+              <option value="technical">Technical Only</option>
+              <option value="behavioral">Behavioral Only</option>
+              <option value="hr">HR & Culture</option>
+            </select>
+          </div>
+
+          <!-- Number of Questions -->
+          <div class="mb-3">
+            <label class="form-label small fw-semibold">Questions: <span id="qCountDisplay">5</span></label>
+            <input type="range" class="form-range" id="questionCount" min="3" max="10" value="5"
+                   oninput="document.getElementById('qCountDisplay').textContent=this.value"/>
+          </div>
+
+          <button class="btn btn-primary w-100 btn-glow" id="startBtn" onclick="startInterview()">
+            <i class="bi bi-play-fill me-2"></i>Start Interview
+          </button>
+        </div>
+
+        <!-- Progress Panel (shown during interview) -->
+        <div id="progressPanel" class="d-none">
+          <h6 class="sidebar-heading"><i class="bi bi-list-check me-2"></i>Progress</h6>
+          <div class="progress-overview mb-3">
+            <div class="d-flex justify-content-between small mb-1">
+              <span>Questions</span>
+              <span id="progressText">0 / 0</span>
+            </div>
+            <div class="progress" style="height:8px">
+              <div class="progress-bar bg-primary" id="progressBar" style="width:0%"></div>
+            </div>
+          </div>
+
+          <div id="questionNav" class="question-nav-list"></div>
+
+          <div class="live-score-panel mt-3">
+            <h6 class="small fw-semibold mb-2">Live Scores</h6>
+            <div class="score-mini-row"><span class="small">Overall</span><span class="fw-bold" id="liveOverall">—</span></div>
+            <div class="score-mini-row"><span class="small text-muted">Technical</span><span class="small" id="liveTech">—</span></div>
+            <div class="score-mini-row"><span class="small text-muted">Communication</span><span class="small" id="liveComm">—</span></div>
+          </div>
+
+          <button class="btn btn-success w-100 mt-3" id="finishBtn" onclick="finishInterview()" disabled>
+            <i class="bi bi-check-circle me-2"></i>Finish & Get Results
+          </button>
+        </div>
+
+        <!-- Tips Panel -->
+        <div id="tipsPanel" class="mt-3 d-none">
+          <h6 class="sidebar-heading"><i class="bi bi-lightbulb me-2"></i>Interview Tips</h6>
+          <ul class="tips-list" id="tipsList"></ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- MAIN CHAT AREA -->
+    <div class="col-lg-6 chat-column">
+      <!-- Welcome Screen -->
+      <div id="welcomeScreen" class="welcome-screen d-flex flex-column align-items-center justify-content-center h-100">
+        <div class="welcome-agent-avatar">AI</div>
+        <h3 class="mt-3">Hello! I'm {{ agent_name }}</h3>
+        <p class="text-muted text-center" style="max-width:400px">
+          {{ agent_title }}. Configure your session on the left and click
+          <strong>Start Interview</strong> to begin.
+        </p>
+        <div class="feature-pills mt-3">
+          <span class="pill">📄 Resume Analysis</span>
+          <span class="pill">🤖 AI Questions</span>
+          <span class="pill">📊 Live Scoring</span>
+          <span class="pill">🎯 Career Guidance</span>
+        </div>
+      </div>
+
+      <!-- Chat Interface -->
+      <div id="chatInterface" class="chat-interface d-none flex-column">
+        <div class="chat-header-bar">
+          <div class="d-flex align-items-center gap-2">
+            <div class="agent-avatar-sm">AI</div>
+            <div>
+              <strong>{{ agent_name }}</strong>
+              <span class="text-muted small"> · {{ agent_title }}</span>
+            </div>
+          </div>
+          <div class="d-flex align-items-center gap-2">
+            <span id="currentQBadge" class="badge bg-primary"></span>
+            <div class="typing-indicator d-none" id="typingIndicator">
+              <span></span><span></span><span></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="messages-area" id="messagesArea"></div>
+
+        <div class="chat-input-area">
+          <div class="input-wrapper">
+            <textarea
+              id="userAnswer"
+              class="chat-input"
+              placeholder="Type your answer here… Press Ctrl+Enter to submit"
+              rows="3"
+              disabled
+            ></textarea>
+            <div class="input-actions">
+              <button class="btn-voice" id="voiceBtn" title="Voice input (coming soon)" disabled>
+                <i class="bi bi-mic"></i>
+              </button>
+              <button class="btn-send" id="sendBtn" onclick="submitAnswer()" disabled>
+                <i class="bi bi-send-fill"></i>
+              </button>
+            </div>
+          </div>
+          <div class="input-hints">
+            <span class="hint">Ctrl+Enter to submit</span>
+            <span id="answerWordCount" class="hint ms-2">0 words</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT PANEL: Feedback & Chat (tabbed) -->
+    <div class="col-lg-3 right-panel">
+      <div class="right-panel-inner p-3">
+        <!-- Tab Navigation -->
+        <ul class="nav nav-pills nav-fill mb-3" id="rightPanelTabs" role="tablist">
+          <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="feedback-tab" data-bs-toggle="tab" data-bs-target="#feedbackTab" type="button">
+              <i class="bi bi-bar-chart-line me-1"></i>Feedback
+            </button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" id="chat-tab" data-bs-toggle="tab" data-bs-target="#chatTab" type="button">
+              <i class="bi bi-chat-dots me-1"></i>Chat
+            </button>
+          </li>
+        </ul>
+
+        <!-- Tab Content -->
+        <div class="tab-content" id="rightPanelTabContent">
+          <!-- Feedback Tab -->
+          <div class="tab-pane fade show active" id="feedbackTab" role="tabpanel">
+            <div id="feedbackPlaceholder" class="placeholder-content">
+              <i class="bi bi-bar-chart-line fs-1 text-muted"></i>
+              <p class="text-muted small mt-2">Feedback and scores will appear here after each answer</p>
+            </div>
+
+            <!-- Evaluation Result (shown after each answer) -->
+            <div id="evaluationPanel" class="d-none">
+              <h6 class="sidebar-heading"><i class="bi bi-star me-2"></i>Answer Evaluation</h6>
+              <div class="score-circle-wrapper mb-3">
+                <div class="score-circle" id="evalScoreCircle">
+                  <span id="evalScoreNum">0</span>
+                  <small>/100</small>
+                </div>
+                <div class="ms-3">
+                  <div class="fw-bold" id="evalGrade">—</div>
+                  <div class="small text-muted" id="evalRecommendation">—</div>
+                </div>
+              </div>
+
+              <div class="dimension-scores mb-3" id="dimensionScores"></div>
+
+              <div class="feedback-section mb-2">
+                <h6 class="small fw-semibold text-success"><i class="bi bi-check-circle me-1"></i>Strengths</h6>
+                <ul class="feedback-list" id="evalStrengths"></ul>
+              </div>
+              <div class="feedback-section mb-2">
+                <h6 class="small fw-semibold text-warning"><i class="bi bi-arrow-up-circle me-1"></i>Improvements</h6>
+                <ul class="feedback-list" id="evalImprovements"></ul>
+              </div>
+              <div class="feedback-section">
+                <h6 class="small fw-semibold"><i class="bi bi-lightbulb me-1"></i>Ideal Answer Summary</h6>
+                <p class="small text-muted" id="evalIdealAnswer"></p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Chat Tab (for doubt clearing) -->
+          <div class="tab-pane fade" id="chatTab" role="tabpanel">
+            <div class="chat-help-panel">
+              <h6 class="sidebar-heading"><i class="bi bi-chat-dots me-2"></i>Ask {{ agent_name }}</h6>
+              <p class="small text-muted mb-3">Have a doubt? Ask questions about interview topics, concepts, or get preparation tips.</p>
+              
+              <div class="help-chat-messages" id="helpChatMessages">
+                <div class="help-chat-msg ai">
+                  <small class="text-muted d-block mb-1">{{ agent_name }}</small>
+                  <p class="mb-0">Hi! I'm here to help you prepare. Ask me anything about technical concepts, behavioral interview strategies, career advice, or specific topics you want to discuss.</p>
+                </div>
+              </div>
+
+              <div class="help-chat-input mt-3">
+                <textarea class="form-control form-control-sm" id="helpChatInput" rows="2" placeholder="Ask a question…"></textarea>
+                <button class="btn btn-sm btn-primary w-100 mt-2" onclick="sendHelpChat()">
+                  <i class="bi bi-send me-1"></i>Send
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="{{ url_for('static', filename='js/app.js') }}"></script>
+<script src="{{ url_for('static', filename='js/interview.js') }}"></script>
+</body>
+</html>

@@ -1,0 +1,115 @@
+WEB DEVELOPMENT INTERVIEW KNOWLEDGE BASE
+========================================
+
+## Frontend Development
+
+### JavaScript Core Concepts
+- Closures: function retaining access to outer scope
+- Prototypal inheritance vs class-based
+- Event loop: call stack, callback queue, microtask queue
+- Promises, async/await, error handling
+- ES6+: destructuring, spread, modules, optional chaining
+- Hoisting: var vs let/const, function declarations
+
+### React
+- Component lifecycle: mounting, updating, unmounting
+- Hooks: useState, useEffect, useContext, useReducer, useMemo, useCallback
+- Virtual DOM and reconciliation algorithm
+- State management: Context API, Redux, Zustand, Jotai
+- Performance: React.memo, useMemo, useCallback, code splitting
+- Server components (Next.js app router)
+
+### CSS & Styling
+- Box model: content, padding, border, margin
+- Flexbox vs Grid layout
+- CSS specificity and cascade
+- Responsive design: media queries, mobile-first
+- CSS custom properties (variables)
+- CSS-in-JS: styled-components, Emotion
+
+### Performance Optimization
+- Core Web Vitals: LCP, FID, CLS
+- Lazy loading images and components
+- Bundle size optimization: tree shaking, code splitting
+- Service workers and caching strategies
+- CDN and asset optimization
+
+---
+
+## Backend Development
+
+### REST API Design
+- HTTP methods: GET, POST, PUT, PATCH, DELETE
+- Status codes: 2xx success, 3xx redirect, 4xx client error, 5xx server error
+- REST constraints: stateless, uniform interface, layered system
+- Versioning strategies: URL, header, query parameter
+- Pagination: offset, cursor-based
+
+### Authentication & Authorization
+- JWT: structure, signing, verification, refresh tokens
+- OAuth 2.0 flows: authorization code, client credentials, PKCE
+- Session-based vs token-based auth
+- RBAC vs ABAC authorization models
+- Security: HTTPS, CORS, CSP, rate limiting
+
+### Database Integration
+- ORM vs raw SQL tradeoffs
+- Connection pooling
+- N+1 query problem and solutions
+- Database migrations
+- Transaction management
+
+---
+
+## Node.js
+
+### Core Concepts
+- Event-driven, non-blocking I/O
+- Event loop phases
+- Streams for memory-efficient data processing
+- Cluster module for multi-core utilization
+- Worker threads for CPU-bound tasks
+
+### Express.js
+- Middleware pattern
+- Error handling middleware
+- Router organization
+- Request/response lifecycle
+
+---
+
+## DevOps & Deployment
+
+### Docker
+- Dockerfile best practices: multi-stage builds, layer caching
+- docker-compose for local development
+- Container orchestration concepts
+
+### CI/CD
+- GitHub Actions, Jenkins, GitLab CI
+- Testing pipeline: unit, integration, e2e
+- Blue-green deployment
+- Feature flags
+
+### Cloud Platforms
+- AWS: EC2, S3, Lambda, RDS, CloudFront
+- GCP: App Engine, Cloud Functions, BigQuery
+- Azure: App Service, Functions, Cosmos DB
+- IBM Cloud: Code Engine, Cloud Foundry, Kubernetes Service
+
+---
+
+## Web Security
+
+### OWASP Top 10
+- SQL Injection: parameterized queries
+- XSS: sanitization, CSP headers
+- CSRF: tokens, SameSite cookies
+- Broken Authentication: secure session management
+- Security Misconfiguration: principle of least privilege
+
+### Best Practices
+- Input validation and sanitization
+- Secure headers (Helmet.js)
+- Dependency vulnerability scanning
+- Secret management (not in code)
