@@ -145,12 +145,19 @@ async function apiFetch(url, options = {}) {
 
 /* ─── Check health on page load (non-blocking) ───────────────── */
 document.addEventListener('DOMContentLoaded', () => {
+  // Only warn once per browser session so the popup doesn't appear on every page visit.
+  if (sessionStorage.getItem('watsonx_ok') === '1') return;
+
   fetch('/api/health')
     .then(r => r.json())
     .then(data => {
       if (data.watsonx && data.watsonx.status === 'error') {
-        showToast('⚠️ IBM watsonx.ai connection issue. Check API credentials.', 'warning', 6000);
+        const reason = data.watsonx.hint || 'Check your .env file and restart the server.';
+        showToast('⚠️ IBM watsonx.ai: ' + reason, 'warning', 8000);
+      } else if (data.watsonx && data.watsonx.status === 'connected') {
+        // Mark healthy so we skip this check for the rest of the session.
+        sessionStorage.setItem('watsonx_ok', '1');
       }
     })
-    .catch(() => {}); // silent fail
+    .catch(() => {}); // silent fail — server may not be ready yet
 });

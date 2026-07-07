@@ -96,11 +96,42 @@ class WatsonxClient:
 
     def health_check(self) -> dict:
         """Check API connectivity and return status."""
+        if not self.api_key:
+            return {
+                "status": "error",
+                "hint": "IBM_API_KEY is missing. Add it to your .env file.",
+            }
+        if not self.project_id:
+            return {
+                "status": "error",
+                "hint": "IBM_PROJECT_ID is missing. Add it to your .env file.",
+            }
+        if not self.base_url:
+            return {
+                "status": "error",
+                "hint": "IBM_WATSONX_URL is missing. Add it to your .env file.",
+            }
         try:
             token = self._get_token()
             return {"status": "connected", "model": self.model_id, "token_valid": bool(token)}
+        except requests.exceptions.HTTPError as e:
+            status_code = e.response.status_code if e.response is not None else "?"
+            if status_code == 400:
+                hint = "IBM API key was rejected (HTTP 400). Regenerate your API key at cloud.ibm.com/iam/apikeys."
+            elif status_code == 401:
+                hint = "IBM API key is unauthorised (HTTP 401). Verify the key and project access."
+            elif status_code == 403:
+                hint = "Access forbidden (HTTP 403). Check your watsonx.ai project permissions."
+            else:
+                hint = f"IBM IAM returned HTTP {status_code}. Check terminal logs for the full error."
+            logger.error("health_check IAM failure: %s", e)
+            return {"status": "error", "hint": hint}
         except Exception as e:
-            return {"status": "error", "message": str(e)}
+            logger.error("health_check unexpected error: %s", e)
+            return {
+                "status": "error",
+                "hint": "Could not reach IBM IAM. Check your network and terminal logs.",
+            }
 
     # ─────────────────────────────────────────────────────────────
     # IAM Token Management
