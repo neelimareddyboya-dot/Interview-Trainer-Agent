@@ -121,7 +121,19 @@ class WatsonxClient:
         }
         headers = {"Content-Type": "application/x-www-form-urlencoded"}
         resp = requests.post(self.IAM_URL, data=payload, headers=headers, timeout=30)
-        resp.raise_for_status()
+        if not resp.ok:
+            # Surface the exact IBM error message before raising so it appears in logs.
+            try:
+                ibm_error = resp.json()
+                ibm_msg = ibm_error.get("errorMessage") or ibm_error.get("errorDescription") or resp.text[:400]
+            except Exception:
+                ibm_msg = resp.text[:400]
+            logger.error(
+                "IBM IAM token request failed — HTTP %s. IBM error: %s",
+                resp.status_code,
+                ibm_msg,
+            )
+            resp.raise_for_status()
         data = resp.json()
         self._token = data["access_token"]
         expires_in = data.get("expires_in", 3600)

@@ -133,7 +133,8 @@ AGENT_INSTRUCTIONS = {
 # ─────────────────────────────────────────────────────────────────────────────
 #  Environment & Logging
 # ─────────────────────────────────────────────────────────────────────────────
-load_dotenv()
+# override=True ensures .env values always win over any stale system env variables.
+load_dotenv(override=True)
 logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s [%(levelname)s] %(name)s: %(message)s",
@@ -164,6 +165,20 @@ CORS(app)
 IBM_API_KEY = os.getenv("IBM_API_KEY", "")
 IBM_PROJECT_ID = os.getenv("IBM_PROJECT_ID", "")
 IBM_WATSONX_URL = os.getenv("IBM_WATSONX_URL", "")
+
+# ── Startup diagnostic: confirm which credentials were loaded (values are masked) ──
+def _mask(value: str, show: int = 6) -> str:
+    """Show only the first `show` characters; mask the rest."""
+    return value[:show] + "***" if len(value) > show else ("(empty)" if not value else value)
+
+logger.info("IBM_API_KEY      loaded: %s", _mask(IBM_API_KEY))
+logger.info("IBM_PROJECT_ID   loaded: %s", _mask(IBM_PROJECT_ID))
+logger.info("IBM_WATSONX_URL  loaded: %s", IBM_WATSONX_URL or "(empty)")
+if not IBM_API_KEY or not IBM_PROJECT_ID or not IBM_WATSONX_URL:
+    logger.warning(
+        "One or more IBM credentials are missing — watsonx.ai calls will fail. "
+        "Check your .env file and ensure load_dotenv(override=True) is applied."
+    )
 
 watsonx = WatsonxClient(
     api_key=IBM_API_KEY,
