@@ -5,6 +5,11 @@ and FAISS for fast similarity search.
 """
 
 import os
+
+# Force HuggingFace libraries to use the local cache only — no network calls.
+os.environ.setdefault("TRANSFORMERS_OFFLINE", "1")
+os.environ.setdefault("HF_DATASETS_OFFLINE", "1")
+
 import logging
 import pickle
 from pathlib import Path
